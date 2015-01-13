@@ -1,0 +1,58 @@
+{
+  "name": "metalsmith-6to5",
+  "version": "0.0.0",
+  "description": "6to5 plugin for Metalsmith",
+  "repository": "shinnn/metalsmith-6to5",
+  "author": {
+    "name": "Shinnosuke Watanabe",
+    "url": "https://github.com/shinnn"
+  },
+  "scripts": {
+    "pretest": "jscs *.js && eslint *.js",
+    "test": "node test.js | tap-spec",
+    "coverage": "istanbul cover test.js",
+    "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/shinnn/metalsmith-6to5/blob/master/LICENSE"
+    }
+  ],
+  "files": [
+    "index.js",
+    "LICENSE"
+  ],
+  "keywords": [
+    "metalsmith",
+    "metalsmith-plugin",
+    "6to5",
+    "ecmascript",
+    "script",
+    "transpile",
+    "transpiler",
+    "language",
+    "es6",
+    "plugin",
+    "harmony"
+  ],
+  "dependencies": {
+    "6to5": "^2.11.4",
+    "object-assign": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^0.11.0",
+    "istanbul": "^0.3.5",
+    "istanbul-coveralls": "^1.0.1",
+    "jscs": "^1.9.0",
+    "metalsmith": "^1.0.1",
+    "tap-spec": "^2.1.2",
+    "tape": "^3.0.3"
+  },
+  "jscsConfig": {
+    "preset": "google",
+    "maximumLineLength": 98,
+    "requireBlocksOnNewline": true,
+    "validateLineBreaks": "LF"
+  }
+}
