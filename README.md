@@ -5,7 +5,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/3ddek6jbengs8ifx?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/metalsmith-6to5)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/metalsmith-6to5.svg?style=flat)](https://coveralls.io/r/shinnn/metalsmith-6to5)
 [![Dependency Status](https://img.shields.io/david/shinnn/metalsmith-6to5.svg?style=flat&label=deps)](https://david-dm.org/shinnn/metalsmith-6to5)
-[![devDependency Status](https://img.shields.io/david/dev/shinnn/metalsmith-6to5/dev-status.svg?style=flat&label=devDeps)](https://david-dm.org/shinnn/metalsmith-6to5#info=devDependencies)
+[![devDependency Status](https://img.shields.io/david/dev/shinnn/metalsmith-6to5.svg?style=flat&label=devDeps)](https://david-dm.org/shinnn/metalsmith-6to5#info=devDependencies)
 
 [6to5](https://6to5.org/) plugin for [Metalsmith](http://www.metalsmith.io/)
 
