@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-6to5",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "6to5 plugin for Metalsmith",
   "repository": "6to5/metalsmith-6to5",
   "author": {
