@@ -1,6 +1,6 @@
 /*!
  * metalsmith-6to5 | MIT (c) Shinnosuke Watanabe
- * https://github.com/shinnn/metalsmith-6to5
+ * https://github.com/6to5/metalsmith-6to5
 */
 'use strict';
 
