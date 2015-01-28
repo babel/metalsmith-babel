@@ -7,7 +7,7 @@
 var path = require('path');
 
 var objectAssign = require('object-assign');
-var to5 = require('6to5');
+var to5 = require('6to5-core');
 
 module.exports = function metalsmith6to5(options) {
   return function metalsmith6to5Plugin(files, metalsmith, done) {

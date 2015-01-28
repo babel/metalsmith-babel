@@ -37,7 +37,7 @@
     "harmony"
   ],
   "dependencies": {
-    "6to5": "^2.11.4",
+    "6to5-core": "^3.0.0",
     "object-assign": "^2.0.0"
   },
   "devDependencies": {
