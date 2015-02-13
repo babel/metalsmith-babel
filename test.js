@@ -51,7 +51,7 @@ test('metalsmith-6to5', function(t) {
         version: 3,
         sources: ['source.js'],
         names: [],
-        mappings: ';UACS',
+        mappings: 'AAAA,YAAY,CAAC;AACb,IAAI,CAAC,GAAG,CAAC,CAAA',
         file: 'source.js',
         sourcesContent: ['"use strict";\nlet a = 1']
       }),
