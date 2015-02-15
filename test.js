@@ -1,7 +1,7 @@
 'use strict';
 
 var Metalsmith = require('metalsmith');
-var to5 = require('./');
+var babel = require('./');
 var test = require('tape');
 
 function fixtures() {
@@ -15,13 +15,13 @@ function fixtures() {
   };
 }
 
-test('metalsmith-6to5', function(t) {
+test('metalsmith-babel', function(t) {
   t.plan(8);
 
-  t.equal(to5.name, 'metalsmith6to5', 'should have a function name.');
+  t.equal(babel.name, 'metalsmithBabel', 'should have a function name.');
 
   new Metalsmith('./')
-  .use(to5())
+  .use(babel())
   .run(fixtures(), function(err, files) {
     t.strictEqual(err, null, 'should be used as a metalsmith plugin.');
     t.equal(
@@ -37,7 +37,7 @@ test('metalsmith-6to5', function(t) {
   });
 
   new Metalsmith('./')
-  .use(to5({sourceMap: true}))
+  .use(babel({sourceMap: true}))
   .run(fixtures(), function(err, files) {
     t.strictEqual(err, null, 'should support source map.');
     t.equal(
@@ -60,8 +60,8 @@ test('metalsmith-6to5', function(t) {
   });
 
   new Metalsmith('./')
-  .use(to5())
+  .use(babel())
   .run({'FOO.JS': {contents: new Buffer('1=a')}}, function(err) {
-    t.ok(err.loc, 'should fail when 6to5 cannot transpile the code.');
+    t.ok(err.loc, 'should fail when babel cannot transpile the code.');
   });
 });

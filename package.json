@@ -1,8 +1,8 @@
 {
-  "name": "metalsmith-6to5",
-  "version": "3.0.1",
-  "description": "6to5 plugin for Metalsmith",
-  "repository": "6to5/metalsmith-6to5",
+  "name": "metalsmith-babel",
+  "version": "0.0.0",
+  "description": "babel plugin for Metalsmith",
+  "repository": "babel/metalsmith-babel",
   "author": {
     "name": "Shinnosuke Watanabe",
     "url": "https://github.com/shinnn"
@@ -16,7 +16,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/6to5/metalsmith-6to5/blob/master/LICENSE"
+      "url": "https://github.com/babel/metalsmith-babel/blob/master/LICENSE"
     }
   ],
   "files": [
@@ -25,7 +25,7 @@
   "keywords": [
     "metalsmith",
     "metalsmith-plugin",
-    "6to5",
+    "babel",
     "ecmascript",
     "script",
     "transpile",
@@ -36,7 +36,7 @@
     "harmony"
   ],
   "dependencies": {
-    "6to5-core": "^3.0.0",
+    "babel-core": "^4.0.1",
     "object-assign": "^2.0.0"
   },
   "devDependencies": {

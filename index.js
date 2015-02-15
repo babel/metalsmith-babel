@@ -1,22 +1,22 @@
 /*!
- * metalsmith-6to5 | MIT (c) Shinnosuke Watanabe
- * https://github.com/6to5/metalsmith-6to5
+ * metalsmith-babel | MIT (c) Shinnosuke Watanabe
+ * https://github.com/babel/metalsmith-babel
 */
 'use strict';
 
 var path = require('path');
 
 var objectAssign = require('object-assign');
-var to5 = require('6to5-core');
+var babel = require('babel-core');
 
-module.exports = function metalsmith6to5(options) {
-  return function metalsmith6to5Plugin(files, metalsmith, done) {
+module.exports = function metalsmithBabel(options) {
+  return function metalsmithBabelPlugin(files, metalsmith, done) {
     Object.keys(files).forEach(function(file) {
       if (path.extname(file).toLowerCase() !== '.js') {
         return;
       }
 
-      var result = to5.transform(String(files[file].contents), objectAssign({}, options, {
+      var result = babel.transform(String(files[file].contents), objectAssign({}, options, {
         filename: path.join(metalsmith._directory, metalsmith._source, file),
         filenameRelative: file
       }));
