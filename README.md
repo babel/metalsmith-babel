@@ -53,7 +53,7 @@ new Metalsmith('./source')
 
 ### Options
 
-All [babel options](https://6to5.org/docs/usage/options/) are available except for `filename` and `filenameRelative` that will be automatically set.
+All [babel options](https://babeljs.io/docs/usage/options/) are available except for `filename` and `filenameRelative` that will be automatically set.
 
 ## License
 
