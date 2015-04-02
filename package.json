@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-babel",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "babel plugin for Metalsmith",
   "repository": "babel/metalsmith-babel",
   "author": {
