@@ -8,7 +8,7 @@
     "url": "https://github.com/shinnn"
   },
   "scripts": {
-    "pretest": "jscs *.js && eslint *.js",
+    "pretest": "eslint --config node_modules/@shinnn/eslintrc-node/rc.json --rule 'no-underscore-dangle: 0' index.js test.js",
     "test": "node test.js | tap-spec",
     "coverage": "istanbul cover test.js",
     "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls"
@@ -40,18 +40,12 @@
     "object-assign": "^2.0.0"
   },
   "devDependencies": {
+    "@shinnn/eslintrc-node": "^1.0.2",
     "eslint": "^0.14.1",
-    "istanbul": "^0.3.5",
-    "istanbul-coveralls": "^1.0.1",
-    "jscs": "^1.11.3",
-    "metalsmith": "^1.3.0",
-    "tap-spec": "^2.2.1",
-    "tape": "^3.5.0"
-  },
-  "jscsConfig": {
-    "preset": "google",
-    "maximumLineLength": 98,
-    "requireBlocksOnNewline": true,
-    "validateLineBreaks": "LF"
+    "istanbul": "^0.3.13",
+    "istanbul-coveralls": "^1.0.2",
+    "metalsmith": "^1.6.0",
+    "tap-spec": "^3.0.0",
+    "tape": "^4.0.0"
   }
 }
