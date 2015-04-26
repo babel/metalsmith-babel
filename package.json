@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@shinnn/eslintrc-node": "^1.0.2",
-    "eslint": "^0.14.1",
+    "eslint": "^0.20.0",
     "istanbul": "^0.3.13",
     "istanbul-coveralls": "^1.0.2",
     "metalsmith": "^1.6.0",
