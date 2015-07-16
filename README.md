@@ -41,7 +41,7 @@ var Metalsmith = require('metalsmith');
 var babel = require('metalsmith-babel');
 
 new Metalsmith('./source')
-.use(babel({/* 6to5 options */}));
+.use(babel({/* 6to5 options */}))
 .build(function(err, files) {
   if (err) {
     throw err;
