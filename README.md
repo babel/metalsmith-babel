@@ -37,12 +37,12 @@ Add the `metalsmith-babel` field to your `metalsmith.json`.
 ### [API](https://github.com/segmentio/metalsmith#api)
 
 ```javascript
-var Metalsmith = require('metalsmith');
-var babel = require('metalsmith-babel');
+const Metalsmith = require('metalsmith');
+const babel = require('metalsmith-babel');
 
 new Metalsmith('./source')
-.use(babel({/* 6to5 options */}));
-.build(function(err, files) {
+.use(babel({/* options */}))
+.build((err, files) => {
   if (err) {
     throw err;
   }
