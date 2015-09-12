@@ -4,19 +4,18 @@
 */
 'use strict';
 
-var path = require('path');
+const path = require('path');
 
-var objectAssign = require('object-assign');
-var babel = require('babel-core');
+const babel = require('babel-core');
 
 module.exports = function metalsmithBabel(options) {
   return function metalsmithBabelPlugin(files, metalsmith, done) {
-    Object.keys(files).forEach(function(file) {
+    Object.keys(files).forEach(function metalsmithBabelfileIterator(file) {
       if (path.extname(file).toLowerCase() !== '.js') {
         return;
       }
 
-      var result = babel.transform(String(files[file].contents), objectAssign({}, options, {
+      const result = babel.transform(String(files[file].contents), Object.assign({}, options, {
         filename: path.join(metalsmith._directory, metalsmith._source, file),
         filenameRelative: file
       }));
@@ -27,7 +26,7 @@ module.exports = function metalsmithBabel(options) {
           contents: new Buffer(JSON.stringify(result.map))
         };
 
-        result.code += '\n//# sourceMappingURL=' + file + '.map\n';
+        result.code += `\n//# sourceMappingURL=${file}.map\n`;
       }
 
       files[file].contents = new Buffer(result.code);

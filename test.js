@@ -1,28 +1,24 @@
 'use strict';
 
-var Metalsmith = require('metalsmith');
-var babel = require('./');
-var test = require('tape');
+const Metalsmith = require('metalsmith');
+const babel = require('./');
+const test = require('tape');
 
 function fixtures() {
   return {
-    'source.js': {
-      contents: new Buffer('"use strict";\nlet a = 1')
-    },
-    'non-js.txt': {
-      contents: new Buffer('Hi')
-    }
+    'source.js': {contents: new Buffer('"use strict";\nlet a = 1')},
+    'non-js.txt': {contents: new Buffer('Hi')}
   };
 }
 
-test('metalsmith-babel', function(t) {
+test('metalsmith-babel', t => {
   t.plan(8);
 
   t.equal(babel.name, 'metalsmithBabel', 'should have a function name.');
 
   new Metalsmith('./')
   .use(babel())
-  .run(fixtures(), function(err, files) {
+  .run(fixtures(), (err, files) => {
     t.strictEqual(err, null, 'should be used as a metalsmith plugin.');
     t.equal(
       String(files['source.js'].contents),
@@ -38,7 +34,7 @@ test('metalsmith-babel', function(t) {
 
   new Metalsmith('./')
   .use(babel({sourceMap: true}))
-  .run(fixtures(), function(err, files) {
+  .run(fixtures(), (err, files) => {
     t.strictEqual(err, null, 'should support source map.');
     t.equal(
       String(files['source.js'].contents),
@@ -61,7 +57,7 @@ test('metalsmith-babel', function(t) {
 
   new Metalsmith('./')
   .use(babel())
-  .run({'FOO.JS': {contents: new Buffer('1=a')}}, function(err) {
+  .run({'FOO.JS': {contents: new Buffer('1=a')}}, err => {
     t.ok(err.loc, 'should fail when babel cannot transpile the code.');
   });
 });
