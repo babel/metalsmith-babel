@@ -7,6 +7,7 @@
 const path = require('path');
 
 const babel = require('babel-core');
+const slash = require('slash');
 
 module.exports = function metalsmithBabel(options) {
   return function metalsmithBabelPlugin(files, metalsmith, done) {
@@ -21,12 +22,15 @@ module.exports = function metalsmithBabel(options) {
       }));
 
       if (result.map) {
-        files[file + '.map'] = {
+        const sourcemapPath = file + '.map';
+        files[sourcemapPath] = {
           mode: files[file].mode,
           contents: new Buffer(JSON.stringify(result.map))
         };
 
-        result.code += `\n//# sourceMappingURL=${file}.map\n`;
+        result.code += `\n//# sourceMappingURL=${
+          slash(path.relative(path.dirname(file), sourcemapPath))
+        }\n`;
       }
 
       files[file].contents = new Buffer(result.code);

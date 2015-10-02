@@ -6,7 +6,7 @@ const test = require('tape');
 
 function fixtures() {
   return {
-    'source.js': {contents: new Buffer('"use strict";\nlet a = 1')},
+    'dir/source.js': {contents: new Buffer('"use strict";\nlet a = 1')},
     'non-js.txt': {contents: new Buffer('Hi')}
   };
 }
@@ -21,7 +21,7 @@ test('metalsmith-babel', t => {
   .run(fixtures(), (err, files) => {
     t.strictEqual(err, null, 'should be used as a metalsmith plugin.');
     t.equal(
-      String(files['source.js'].contents),
+      String(files['dir/source.js'].contents),
       '"use strict";\nvar a = 1;',
       'should turn ES6+ code into ES5.'
     );
@@ -33,22 +33,26 @@ test('metalsmith-babel', t => {
   });
 
   new Metalsmith('./')
-  .use(babel({sourceMap: true}))
+  .use(babel({
+    sourceMap: true,
+    sourceRoot: 'dir'
+  }))
   .run(fixtures(), (err, files) => {
     t.strictEqual(err, null, 'should support source map.');
     t.equal(
-      String(files['source.js'].contents),
+      String(files['dir/source.js'].contents),
       '"use strict";\nvar a = 1;\n//# sourceMappingURL=source.js.map\n',
       'should append source map URL to the bottom of code.'
     );
     t.equal(
-      String(files['source.js.map'].contents),
+      String(files['dir/source.js.map'].contents),
       JSON.stringify({
         version: 3,
-        sources: ['source.js'],
+        sources: ['dir/source.js'],
         names: [],
         mappings: 'AAAA,YAAY,CAAC;AACb,IAAI,CAAC,GAAG,CAAC,CAAA',
-        file: 'source.js',
+        file: 'dir/source.js',
+        sourceRoot: 'dir',
         sourcesContent: ['"use strict";\nlet a = 1']
       }),
       'should create a source map file.'
