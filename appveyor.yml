@@ -7,4 +7,4 @@ install:
   - npm install metalsmith tape
 build: off
 test_script: node --strong_mode test.js
-cache: node_modules
+cache: node_modules -> package.json
