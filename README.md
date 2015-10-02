@@ -1,7 +1,7 @@
 # metalsmith-babel
 
 [![NPM version](https://img.shields.io/npm/v/metalsmith-babel.svg)](https://www.npmjs.com/package/metalsmith-babel)
-[![Travis CI build Status](https://img.shields.io/travis/babel/metalsmith-babel.svg?style=flat)](https://travis-ci.org/babel/metalsmith-babel)
+[![Build Status](https://travis-ci.org/babel/metalsmith-babel.svg?branch=master)](https://travis-ci.org/babel/metalsmith-babel)
 [![Build status](https://ci.appveyor.com/api/projects/status/k49tibi2lsbl0xk2?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/metalsmith-babel)
 [![Coverage Status](https://img.shields.io/coveralls/babel/metalsmith-babel.svg)](https://coveralls.io/r/babel/metalsmith-babel)
 [![Dependency Status](https://img.shields.io/david/babel/metalsmith-babel.svg?label=deps)](https://david-dm.org/babel/metalsmith-babel)
