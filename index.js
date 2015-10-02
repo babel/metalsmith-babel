@@ -26,7 +26,8 @@ module.exports = function metalsmithBabel(options) {
           contents: new Buffer(JSON.stringify(result.map))
         };
 
-        result.code += `\n//# sourceMappingURL=${file}.map\n`;
+        const filename = file.slice(file.lastIndexOf('/') + 1);
+        result.code += `\n//# sourceMappingURL=${filename}.map\n`;
       }
 
       files[file].contents = new Buffer(result.code);
