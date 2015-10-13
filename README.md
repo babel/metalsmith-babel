@@ -7,15 +7,17 @@
 [![Dependency Status](https://img.shields.io/david/babel/metalsmith-babel.svg?label=deps)](https://david-dm.org/babel/metalsmith-babel)
 [![devDependency Status](https://img.shields.io/david/dev/babel/metalsmith-babel.svg?label=devDeps)](https://david-dm.org/babel/metalsmith-babel#info=devDependencies)
 
-[babel](https://babeljs.io/) plugin for [Metalsmith](http://www.metalsmith.io/)
+[Babel](https://babeljs.io/) plugin for [Metalsmith](http://www.metalsmith.io/)
 
 ## Installation
 
-[Use npm.](https://docs.npmjs.com/cli/install)
+[Use npm](https://docs.npmjs.com/cli/install):
 
 ```
 npm install metalsmith-babel
 ```
+
+And ensure the requisite [Babel plugins](https://babeljs.io/docs/plugins/) are installed.
 
 ## Usage
 
@@ -27,6 +29,9 @@ Add the `metalsmith-babel` field to your `metalsmith.json`.
 {
   "plugins": {
     "metalsmith-babel": {
+      "presets": [
+        "es2015"
+      ]
       "modules": "common",
       "comments": true
     }
@@ -40,8 +45,12 @@ Add the `metalsmith-babel` field to your `metalsmith.json`.
 const Metalsmith = require('metalsmith');
 const babel = require('metalsmith-babel');
 
+const babelOptions = {
+  presets: ['es2015']
+};
+
 new Metalsmith('./source')
-.use(babel({/* options */}))
+.use(babel(babelOptions))
 .build((err, files) => {
   if (err) {
     throw err;
@@ -53,7 +62,7 @@ new Metalsmith('./source')
 
 ### Options
 
-All [babel options](https://babeljs.io/docs/usage/options/) are available except for `filename` and `filenameRelative` that will be automatically set.
+All [Babel options](https://babeljs.io/docs/usage/options/) are available except for `filename` and `filenameRelative` that will be automatically set.
 
 ## License
 
