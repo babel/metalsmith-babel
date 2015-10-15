@@ -3,8 +3,9 @@ version: '{build}'
 skip_tags: true
 install:
   - ps: Install-Product node 4
-  - npm install --production
-  - npm install metalsmith tape
+  - npm install -g npm
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm install
 build: off
 test_script: node --strong_mode test.js
 cache: node_modules -> package.json
