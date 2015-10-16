@@ -39,7 +39,6 @@
     "babel-preset-es2015": "^6.0.11",
     "eslint": "^1.7.3",
     "istanbul": "^0.4.0",
-    "istanbul-coveralls": "^1.0.3",
     "metalsmith": "^2.0.1",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.2"
