@@ -2,9 +2,7 @@ shallow_clone: true
 version: '{build}'
 skip_tags: true
 install:
-  - ps: Install-Product node 4
-  - npm install -g npm
-  - set PATH=%APPDATA%\npm;%PATH%
+  - ps: Install-Product node 5
   - npm install
 build: off
 test_script: node --strong_mode test.js
