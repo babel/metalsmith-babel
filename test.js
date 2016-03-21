@@ -50,7 +50,7 @@ test('metalsmith-babel', t => {
         version: 3,
         sources: ['source.js'],
         names: [],
-        mappings: 'AAAA,YAAY,CAAC;;;;AAAA,IAAI,CAAC,eAAG,CAAC,EAAE,CAAC,gBAAA,CAAC',
+        mappings: 'AAAA;;;;AAAa,IAAI,gBAAI,GAAG,iBAAP',
         file: 'source.js',
         sourceRoot: 'dir',
         sourcesContent: ['"use strict";let a = b::c;']
