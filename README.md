@@ -4,8 +4,8 @@
 [![Build Status](https://travis-ci.org/babel/metalsmith-babel.svg?branch=master)](https://travis-ci.org/babel/metalsmith-babel)
 [![Build status](https://ci.appveyor.com/api/projects/status/k49tibi2lsbl0xk2?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/metalsmith-babel)
 [![Coverage Status](https://img.shields.io/coveralls/babel/metalsmith-babel.svg)](https://coveralls.io/r/babel/metalsmith-babel)
-[![Dependency Status](https://img.shields.io/david/babel/metalsmith-babel.svg?label=deps)](https://david-dm.org/babel/metalsmith-babel)
-[![devDependency Status](https://img.shields.io/david/dev/babel/metalsmith-babel.svg?label=devDeps)](https://david-dm.org/babel/metalsmith-babel#info=devDependencies)
+[![Dependency Status](https://david-dm.org/babel/metalsmith-babel.svg)](https://david-dm.org/babel/metalsmith-babel)
+[![devDependency Status](https://david-dm.org/babel/metalsmith-babel/dev-status.svg)](https://david-dm.org/babel/metalsmith-babel#info=devDependencies)
 
 [Babel](https://babeljs.io/) plugin for [Metalsmith](http://www.metalsmith.io/)
 
