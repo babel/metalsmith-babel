@@ -17,7 +17,7 @@ module.exports = function metalsmithBabel(options) {
       }
 
       const result = babel.transform(String(files[file].contents), Object.assign({}, options, {
-        filename: path.join(metalsmith._directory, metalsmith._source, file),
+        filename: path.join(metalsmith.directory(), metalsmith.source(), file),
         filenameRelative: file
       }));
 
