@@ -61,7 +61,7 @@ test('metalsmith-babel', t => {
 
   new Metalsmith('.')
   .use(babel())
-  .run({'FOO.JS': {contents: new Buffer('1=a')}}, err => {
+  .run({'FOO.JS': {contents: Buffer.from('1=a')}}, err => {
     t.ok(err instanceof SyntaxError, 'should fail when Babel cannot transpile the code.');
   });
 });
