@@ -60,6 +60,27 @@ test('metalsmith-babel', t => {
       'should create a source map file.'
     );
   });
+
+  new Metalsmith('.')
+  .use(babel({sourceMap: 'both'}))
+  .run({
+    'ディレクトリ/ソース.js': {contents: Buffer.from('1')}
+  }, (err, files) => {
+    t.strictEqual(err, null, 'should support non-ASCII filename.');
+    t.strictEqual(
+      String(files['ディレクトリ/ソース.js'].contents),
+      '1;\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIuOCveODvOOCuS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiLjg4fjgqPjg6zjgq/jg4jjg6ov44K944O844K5LmpzIiwic291cmNlc0NvbnRlbnQiOlsiMSJdfQ==',
+      'should support `sourceMap` ⇆ `sourceMaps` option alias.'
+    );
+    t.strictEqual(
+      String(files['ディレクトリ/ソース.js.map'].contents),
+      JSON.stringify({
+        version: 3,
+        sources: ['ソース.js'],
+        names: [],
+        mappings: 'AAAA',
+        file: 'ディレクトリ/ソース.js',
+        sourcesContent: ['1']
       }),
       'should create a source map file.'
     );

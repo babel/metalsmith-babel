@@ -39,9 +39,12 @@ module.exports = function metalsmithBabel(options) {
           contents: new Buffer(JSON.stringify(result.map))
         };
 
-        result.code += `\n//# sourceMappingURL=${
-          slash(path.relative(path.dirname(file), sourcemapPath))
-        }\n`;
+        // https://github.com/babel/babel/blob/v6.14.0/packages/babel-core/src/transformation/file/options/config.js#L123
+        if (options.sourceMap !== 'both' && options.sourceMaps !== 'both') {
+          result.code += `\n//# sourceMappingURL=${
+            path.relative(path.dirname(filename), sourcemapPath).replace(/\\/g, '/')
+          }\n`;
+        }
       }
 
       files[filename].contents = new Buffer(result.code);
