@@ -62,7 +62,7 @@ new Metalsmith('./source')
 
 ### Options
 
-All [Babel options](https://babeljs.io/docs/usage/options/) are available except for `filename` and `filenameRelative` that will be automatically set.
+All [Babel options](https://babeljs.io/docs/usage/options/) are available except for `filename`, `filenameRelative` and `sourceMapTarget` that will be automatically set.
 
 ## License
 
