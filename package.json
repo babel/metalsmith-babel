@@ -6,9 +6,8 @@
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
   "scripts": {
     "pretest": "eslint --fix --config @shinnn/node index.js test.js",
-    "test": "node --strong_mode test.js | tap-spec",
-    "coverage": "node --strong_mode node_modules/.bin/istanbul cover test.js",
-    "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls"
+    "test": "node test.js | tap-spec",
+    "coverage": "istanbul cover --print=both test.js"
   },
   "license": "MIT",
   "files": [
@@ -31,12 +30,12 @@
   ],
   "dependencies": {
     "babel-core": "^6.0.2",
-    "slash": "^1.0.0"
+    "to-fast-properties": "^1.0.2"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^3.0.0",
     "babel-plugin-transform-function-bind": "^6.8.0",
-    "babel-preset-node6": "^11.0.0",
+    "babel-preset-react": "^6.11.1",
     "eslint": "^3.1.1",
     "istanbul": "^0.4.4",
     "metalsmith": "^2.0.1",

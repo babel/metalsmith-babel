@@ -5,7 +5,7 @@ const babel = require('.');
 const test = require('tape');
 
 test('metalsmith-babel', t => {
-  t.plan(8);
+  t.plan(12);
 
   t.strictEqual(babel.name, 'metalsmithBabel', 'should have a function name.');
 
@@ -19,41 +19,47 @@ test('metalsmith-babel', t => {
     t.strictEqual(
       String(files['source.js'].contents),
       '() => 1;',
-      'should transform *.js files.'
+      'should transform JavaScript files.'
     );
     t.strictEqual(
       String(files['non-js.txt'].contents),
       'Hi',
-      'should not transform non-*.js files.'
+      'should not transform non-JavaScript files.'
     );
   });
 
   new Metalsmith('.')
   .use(babel({
-    presets: ['node6'],
+    presets: ['react'],
     plugins: ['transform-function-bind'],
-    sourceMap: true,
+    minified: true,
+    sourceMaps: true,
     sourceRoot: 'dir'
   }))
   .run({
-    'dir/source.js': {contents: Buffer.from('a::b(c,)')}
+    'dir/source.jsx': {contents: Buffer.from('a::b(<div />)')}
   }, (err, files) => {
     t.strictEqual(err, null, 'should support Babel options.');
+    t.notOk('dir/source.jsx' in files, 'should rename .jsx file to .js.');
     t.strictEqual(
       String(files['dir/source.js'].contents),
-      '"use strict";\n\nvar _context;\n\n(_context = a, b).call(_context, c);\n//# sourceMappingURL=source.js.map\n',
+      'var _context;(_context=a,b).call(_context,React.createElement("div",null));\n//# sourceMappingURL=source.js.map\n',
       'should append a source map URL to the bottom of code.'
     );
     t.strictEqual(
       String(files['dir/source.js.map'].contents),
       JSON.stringify({
         version: 3,
-        sources: ['source.js'],
-        names: [],
-        mappings: ';;;;AAAA,eAAG,CAAH,iBAAK,CAAL',
-        file: 'source.js',
+        sources: ['source.jsx'],
+        names: ['b'],
+        mappings: 'aAAA,YAAGA,CAAH,gBAAK,+BAAL',
+        file: 'dir/source.js',
         sourceRoot: 'dir',
-        sourcesContent: ['a::b(c,)']
+        sourcesContent: ['a::b(<div />)']
+      }),
+      'should create a source map file.'
+    );
+  });
       }),
       'should create a source map file.'
     );

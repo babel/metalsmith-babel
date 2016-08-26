@@ -7,24 +7,35 @@
 const path = require('path');
 
 const babel = require('babel-core');
-const slash = require('slash');
+const toFastProperties = require('to-fast-properties');
 
 module.exports = function metalsmithBabel(options) {
-  return function metalsmithBabelPlugin(files, metalsmith, done) {
-    Object.keys(files).forEach(function metalsmithBabelfileIterator(file) {
-      if (path.extname(file).toLowerCase() !== '.js') {
+  options = Object.assign({}, options);
+
+  return function metalsmithBabelPlugin(files, metalsmith) {
+    Object.keys(files).forEach(originalFilename => {
+      const ext = path.extname(originalFilename).toLowerCase();
+      if (ext !== '.js' && ext !== '.jsx') {
         return;
       }
 
-      const result = babel.transform(String(files[file].contents), Object.assign({}, options, {
-        filename: path.join(metalsmith.directory(), metalsmith.source(), file),
-        filenameRelative: file
+      const filename = originalFilename.replace(/\.jsx$/i, '.js');
+
+      if (originalFilename !== filename) {
+        files[filename] = files[originalFilename];
+        delete files[originalFilename];
+        toFastProperties(files);
+      }
+
+      const result = babel.transform(String(files[filename].contents), Object.assign({}, options, {
+        filename: path.join(metalsmith.directory(), metalsmith.source(), originalFilename),
+        filenameRelative: originalFilename,
+        sourceMapTarget: filename
       }));
 
       if (result.map) {
-        const sourcemapPath = file + '.map';
+        const sourcemapPath = `${filename}.map`;
         files[sourcemapPath] = {
-          mode: files[file].mode,
           contents: new Buffer(JSON.stringify(result.map))
         };
 
@@ -33,8 +44,7 @@ module.exports = function metalsmithBabel(options) {
         }\n`;
       }
 
-      files[file].contents = new Buffer(result.code);
+      files[filename].contents = new Buffer(result.code);
     });
-    done();
   };
 };
