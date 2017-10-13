@@ -30,6 +30,7 @@
   ],
   "dependencies": {
     "babel-core": "^6.26.0",
+    "safe-buffer": "^5.1.1",
     "to-fast-properties": "^1.0.2"
   },
   "devDependencies": {

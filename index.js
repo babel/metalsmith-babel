@@ -7,6 +7,7 @@
 const path = require('path');
 
 const babel = require('babel-core');
+const SafeBuffer = require('safe-buffer').Buffer;
 const toFastProperties = require('to-fast-properties');
 
 module.exports = function metalsmithBabel(options) {
@@ -36,7 +37,7 @@ module.exports = function metalsmithBabel(options) {
       if (result.map) {
         const sourcemapPath = `${filename}.map`;
         files[sourcemapPath] = {
-          contents: new Buffer(JSON.stringify(result.map))
+          contents: SafeBuffer.from(JSON.stringify(result.map))
         };
 
         // https://github.com/babel/babel/blob/v6.14.0/packages/babel-core/src/transformation/file/options/config.js#L123
@@ -47,7 +48,7 @@ module.exports = function metalsmithBabel(options) {
         }
       }
 
-      files[filename].contents = new Buffer(result.code);
+      files[filename].contents = SafeBuffer.from(result.code);
     });
   };
 };
