@@ -7,7 +7,7 @@ const test = require('tape');
 test('metalsmith-babel', t => {
   t.plan(12);
 
-  t.strictEqual(babel.name, 'metalsmithBabel', 'should have a function name.');
+  t.equal(babel.name, 'metalsmithBabel', 'should have a function name.');
 
   new Metalsmith('.')
   .use(babel())
@@ -15,13 +15,13 @@ test('metalsmith-babel', t => {
     'source.js': {contents: Buffer.from('(    )    =>    1')},
     'non-js.txt': {contents: Buffer.from('Hi')}
   }, (err, files) => {
-    t.strictEqual(err, null, 'should be used as a metalsmith plugin.');
-    t.strictEqual(
+    t.equal(err, null, 'should be used as a metalsmith plugin.');
+    t.equal(
       String(files['source.js'].contents),
       '() => 1;',
       'should transform JavaScript files.'
     );
-    t.strictEqual(
+    t.equal(
       String(files['non-js.txt'].contents),
       'Hi',
       'should not transform non-JavaScript files.'
@@ -39,14 +39,14 @@ test('metalsmith-babel', t => {
   .run({
     'dir/source.jsx': {contents: Buffer.from('a::b(<div />)')}
   }, (err, files) => {
-    t.strictEqual(err, null, 'should support Babel options.');
+    t.equal(err, null, 'should support Babel options.');
     t.notOk('dir/source.jsx' in files, 'should rename .jsx file to .js.');
-    t.strictEqual(
+    t.equal(
       String(files['dir/source.js'].contents),
       'var _context;(_context=a,b).call(_context,React.createElement("div",null));\n//# sourceMappingURL=source.js.map\n',
       'should append a source map URL to the bottom of code.'
     );
-    t.strictEqual(
+    t.equal(
       String(files['dir/source.js.map'].contents),
       JSON.stringify({
         version: 3,
@@ -66,13 +66,13 @@ test('metalsmith-babel', t => {
   .run({
     'ディレクトリ/ソース.js': {contents: Buffer.from('1')}
   }, (err, files) => {
-    t.strictEqual(err, null, 'should support non-ASCII filename.');
-    t.strictEqual(
+    t.equal(err, null, 'should support non-ASCII filename.');
+    t.equal(
       String(files['ディレクトリ/ソース.js'].contents),
-      '1;\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIuOCveODvOOCuS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiLjg4fjgqPjg6zjgq/jg4jjg6ov44K944O844K5LmpzIiwic291cmNlc0NvbnRlbnQiOlsiMSJdfQ==',
+      '1;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIuOCveODvOOCuS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiLjg4fjgqPjg6zjgq/jg4jjg6ov44K944O844K5LmpzIiwic291cmNlc0NvbnRlbnQiOlsiMSJdfQ==',
       'should support `sourceMap` ⇆ `sourceMaps` option alias.'
     );
-    t.strictEqual(
+    t.equal(
       String(files['ディレクトリ/ソース.js.map'].contents),
       JSON.stringify({
         version: 3,

@@ -29,17 +29,17 @@
     "harmony"
   ],
   "dependencies": {
-    "babel-core": "^6.0.2",
+    "babel-core": "^6.26.0",
     "to-fast-properties": "^1.0.2"
   },
   "devDependencies": {
-    "@shinnn/eslint-config-node": "^3.0.0",
-    "babel-plugin-transform-function-bind": "^6.8.0",
-    "babel-preset-react": "^6.11.1",
-    "eslint": "^3.1.1",
-    "istanbul": "^0.4.4",
-    "metalsmith": "^2.0.1",
+    "@shinnn/eslint-config-node": "^4.0.2",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.8.0",
+    "istanbul": "^0.4.5",
+    "metalsmith": "^2.3.0",
     "tap-spec": "^4.1.1",
-    "tape": "^4.6.0"
+    "tape": "^4.8.0"
   }
 }
