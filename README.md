@@ -1,11 +1,9 @@
 # metalsmith-babel
 
-[![NPM version](https://img.shields.io/npm/v/metalsmith-babel.svg)](https://www.npmjs.com/package/metalsmith-babel)
+[![npm version](https://img.shields.io/npm/v/metalsmith-babel.svg)](https://www.npmjs.com/package/metalsmith-babel)
 [![Build Status](https://travis-ci.org/babel/metalsmith-babel.svg?branch=master)](https://travis-ci.org/babel/metalsmith-babel)
 [![Build status](https://ci.appveyor.com/api/projects/status/k49tibi2lsbl0xk2?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/metalsmith-babel)
 [![Coverage Status](https://img.shields.io/coveralls/babel/metalsmith-babel.svg)](https://coveralls.io/r/babel/metalsmith-babel)
-[![dependencies Status](https://david-dm.org/babel/metalsmith-babel/status.svg)](https://david-dm.org/babel/metalsmith-babel)
-[![devDependencies Status](https://david-dm.org/babel/metalsmith-babel/dev-status.svg)](https://david-dm.org/babel/metalsmith-babel?type=dev)
 
 [Babel](https://babeljs.io/) plugin for [Metalsmith](http://www.metalsmith.io/)
 
@@ -29,9 +27,7 @@ Add the `metalsmith-babel` field to your `metalsmith.json`.
 {
   "plugins": {
     "metalsmith-babel": {
-      "presets": [
-        "es2015"
-      ]
+      "presets": ["env"]
       "modules": "common",
       "comments": true
     }
@@ -46,7 +42,7 @@ const Metalsmith = require('metalsmith');
 const babel = require('metalsmith-babel');
 
 const babelOptions = {
-  presets: ['es2015']
+  presets: ['env']
 };
 
 new Metalsmith('./source')
