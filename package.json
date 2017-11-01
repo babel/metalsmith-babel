@@ -9,7 +9,7 @@
     "test": "node test.js | tap-spec",
     "coverage": "istanbul cover --print=both test.js"
   },
-  "license": "MIT",
+  "license": "ISC",
   "files": [
     "index.js"
   ],

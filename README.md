@@ -62,6 +62,4 @@ All [Babel options](https://babeljs.io/docs/usage/options/) are available except
 
 ## License
 
-Copyright (c) 2015 - 2016 [Shinnosuke Watanabe](https://github.com/shinnn)
-
-Licensed under [the MIT License](./LICENSE).
+[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe
