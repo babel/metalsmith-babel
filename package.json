@@ -5,9 +5,8 @@
   "repository": "babel/metalsmith-babel",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
   "scripts": {
-    "pretest": "eslint --fix --config @shinnn/node index.js test.js",
-    "test": "node test.js | tap-spec",
-    "coverage": "istanbul cover --print=both test.js"
+    "pretest": "eslint --fix --format=codeframe index.js test.js",
+    "test": "istanbul cover test.js"
   },
   "license": "ISC",
   "files": [
@@ -22,7 +21,7 @@
     "transpile",
     "transpiler",
     "language",
-    "es2015",
+    "compatibility",
     "esnext",
     "future",
     "plugin",
@@ -37,10 +36,12 @@
     "@shinnn/eslint-config-node": "^4.0.2",
     "babel-plugin-transform-function-bind": "^6.22.0",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^4.8.0",
+    "eslint": "^4.10.0",
     "istanbul": "^0.4.5",
     "metalsmith": "^2.3.0",
-    "tap-spec": "^4.1.1",
     "tape": "^4.8.0"
+  },
+  "eslintConfig": {
+    "extends": "@shinnn/node"
   }
 }
