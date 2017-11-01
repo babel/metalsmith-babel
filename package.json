@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-babel",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Babel plugin for Metalsmith",
   "repository": "babel/metalsmith-babel",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
