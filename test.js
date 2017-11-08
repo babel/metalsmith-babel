@@ -64,22 +64,22 @@ test('metalsmith-babel', t => {
   new Metalsmith('.')
   .use(babel({sourceMap: 'both'}))
   .run({
-    'ディレクトリ/ソース.js': {contents: Buffer.from('1')}
+    '🐟/🐠.mjs': {contents: Buffer.from('1')}
   }, (err, files) => {
-    t.equal(err, null, 'should support non-ASCII filename.');
+    t.equal(err, null, 'should support .mjs files.');
     t.equal(
-      String(files['ディレクトリ/ソース.js'].contents),
-      '1;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIuOCveODvOOCuS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiLjg4fjgqPjg6zjgq/jg4jjg6ov44K944O844K5LmpzIiwic291cmNlc0NvbnRlbnQiOlsiMSJdfQ==',
+      String(files['🐟/🐠.mjs'].contents),
+      '1;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIvCfkKAubWpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6IvCfkJ8v8J+QoC5tanMiLCJzb3VyY2VzQ29udGVudCI6WyIxIl19',
       'should support `sourceMap` ⇆ `sourceMaps` option alias.'
     );
     t.equal(
-      String(files['ディレクトリ/ソース.js.map'].contents),
+      String(files['🐟/🐠.mjs.map'].contents),
       JSON.stringify({
         version: 3,
-        sources: ['ソース.js'],
+        sources: ['🐠.mjs'],
         names: [],
         mappings: 'AAAA',
-        file: 'ディレクトリ/ソース.js',
+        file: '🐟/🐠.mjs',
         sourcesContent: ['1']
       }),
       'should create a source map file.'

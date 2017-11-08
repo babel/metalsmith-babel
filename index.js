@@ -18,7 +18,7 @@ module.exports = function metalsmithBabel(options) {
   return function metalsmithBabelPlugin(files, metalsmith) {
     for (const originalFilename of Object.keys(files)) {
       const ext = extname(originalFilename).toLowerCase();
-      if (ext !== '.js' && ext !== '.jsx') {
+      if (ext !== '.js' && ext !== '.mjs' && ext !== '.jsx') {
         return;
       }
 
