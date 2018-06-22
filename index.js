@@ -19,7 +19,7 @@ module.exports = function metalsmithBabel(options) {
     for (const originalFilename of Object.keys(files)) {
       const ext = extname(originalFilename).toLowerCase();
       if (ext !== '.js' && ext !== '.mjs' && ext !== '.jsx') {
-        return;
+        continue;
       }
 
       const filename = originalFilename.replace(/\.jsx$/i, '.js');

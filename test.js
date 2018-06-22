@@ -12,19 +12,19 @@ test('metalsmith-babel', t => {
   new Metalsmith('.')
   .use(babel())
   .run({
-    'source.js': {contents: Buffer.from('(    )    =>    1')},
-    'non-js.txt': {contents: Buffer.from('Hi')}
+    'non-js.txt': {contents: Buffer.from('Hi')},
+    'source.js': {contents: Buffer.from('(    )    =>    1')}
   }, (err, files) => {
     t.equal(err, null, 'should be used as a metalsmith plugin.');
-    t.equal(
-      String(files['source.js'].contents),
-      '() => 1;',
-      'should transform JavaScript files.'
-    );
     t.equal(
       String(files['non-js.txt'].contents),
       'Hi',
       'should not transform non-JavaScript files.'
+    );
+    t.equal(
+      String(files['source.js'].contents),
+      '() => 1;',
+      'should transform JavaScript files.'
     );
   });
 
