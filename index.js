@@ -15,11 +15,11 @@ module.exports = function metalsmithBabel(options) {
   options = Object.assign({}, options);
   let noFilesRenamed = true;
 
-  return function metalsmithBabelPlugin(files, metalsmith, done) {
-    Object.keys(files).forEach(originalFilename => {
+  return function metalsmithBabelPlugin(files, metalsmith) {
+    for (const originalFilename of Object.keys(files)) {
       const ext = extname(originalFilename).toLowerCase();
       if (ext !== '.js' && ext !== '.mjs' && ext !== '.jsx') {
-        return;
+        continue;
       }
 
       const filename = originalFilename.replace(/\.jsx$/i, '.js');
@@ -51,13 +51,12 @@ module.exports = function metalsmithBabel(options) {
       }
 
       files[filename].contents = SafeBuffer.from(result.code);
-    });
+    }
 
     if (noFilesRenamed) {
-      return done();
+      return;
     }
 
     toFastProperties(files);
-    return done();
   };
 };
