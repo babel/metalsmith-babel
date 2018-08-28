@@ -12,7 +12,7 @@ module.exports = function metalsmithBabel(...args) {
     throw new RangeError(`Expected 0 or 1 argument ([<Object>]), but got ${argLen} arguments.`);
   }
 
-  const options = Object.assign({}, args[0]);
+  const options = {...args[0]};
   let noFilesRenamed = true;
 
   return function metalsmithBabelPlugin(files, metalsmith) {
@@ -22,7 +22,7 @@ module.exports = function metalsmithBabel(...args) {
         continue;
       }
 
-      const filename = originalFilename.replace(/\.jsx$/i, '.js');
+      const filename = originalFilename.replace(/\.jsx$/ui, '.js');
 
       if (originalFilename !== filename) {
         files[filename] = files[originalFilename];
@@ -30,11 +30,12 @@ module.exports = function metalsmithBabel(...args) {
         noFilesRenamed = false;
       }
 
-      const result = babel.transform(String(files[filename].contents), Object.assign({}, options, {
+      const result = babel.transform(String(files[filename].contents), {
+        ...options,
         filename: join(metalsmith.directory(), metalsmith.source(), originalFilename),
         filenameRelative: originalFilename,
         sourceMapTarget: filename
-      }));
+      });
 
       if (result.map) {
         const sourcemapPath = `${filename}.map`;
@@ -45,7 +46,7 @@ module.exports = function metalsmithBabel(...args) {
         // https://github.com/babel/babel/blob/v6.24.0/packages/babel-core/src/transformation/file/options/config.js#L123
         if (options.sourceMap !== 'both' && options.sourceMaps !== 'both') {
           result.code += `\n//# sourceMappingURL=${
-            relative(dirname(filename), sourcemapPath).replace(/\\/g, '/')
+            relative(dirname(filename), sourcemapPath).replace(/\\/ug, '/')
           }\n`;
         }
       }

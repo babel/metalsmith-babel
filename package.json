@@ -41,6 +41,9 @@
     "tape": "^4.8.0"
   },
   "eslintConfig": {
-    "extends": "@shinnn/node"
+    "extends": "@shinnn/node",
+    "parserOptions": {
+      "ecmaVersion": 2018
+    }
   }
 }
