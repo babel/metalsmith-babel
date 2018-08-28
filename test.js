@@ -5,12 +5,13 @@ const metalsmithBabel = require('.');
 const test = require('tape');
 
 test('metalsmith-babel', t => {
-	t.plan(13);
+	t.plan(20);
 
 	new Metalsmith('.')
 	.use(metalsmithBabel())
 	.run({
 		'non-js.txt': {contents: Buffer.from('Hi')},
+		'typescript.ts': {contents: Buffer.from('null        ;')},
 		'source.js': {contents: Buffer.from('(    )    =>    1')}
 	}, (err, files) => {
 		t.equal(err, null, 'should be used as a metalsmith plugin.');
@@ -18,6 +19,11 @@ test('metalsmith-babel', t => {
 			files['non-js.txt'].contents.toString(),
 			'Hi',
 			'should not transform non-JavaScript files.'
+		);
+		t.equal(
+			files['typescript.ts'].contents.toString(),
+			'null        ;',
+			'should not transform TypeScript files when @babel/preset-typescript is not loaded.'
 		);
 		t.equal(
 			files['source.js'].contents.toString(),
@@ -85,12 +91,73 @@ test('metalsmith-babel', t => {
 	});
 
 	new Metalsmith('.')
+	.use(metalsmithBabel({
+		presets: ['@babel/preset-typescript']
+	}))
+	.run({
+		'source.ts': {contents: Buffer.from('const x: number = 1')}
+	}, (err, files) => {
+		t.equal(err, null, 'should support TypeScript when @babel/preset-typescript is loaded.');
+
+		t.equal(
+			files['source.js'].contents.toString(),
+			'const x = 1;',
+			'should compile TypeScript when @babel/preset-typescript is loaded.'
+		);
+	});
+
+	new Metalsmith('.')
+	.use(metalsmithBabel({
+		presets: ['@babel/react', '@babel/preset-typescript'],
+		comments: false
+	}))
+	.run({
+		'source.tsx': {contents: Buffer.from(`declare namespace JSX {
+  interface IntrinsicElements {
+    foo: { bar?: boolean }
+  }
+}
+<foo bar />;`)}
+	}, (err, files) => {
+		t.equal(err, null, 'should support TSX when @babel/preset-typescript is loaded.');
+
+		t.equal(
+			files['source.js'].contents.toString(),
+			'React.createElement("foo", {\n  bar: true\n});',
+			'should compile TSX when both @babel/preset-react and @babel/preset-typescript are loaded.'
+		);
+	});
+
+	new Metalsmith('.')
 	.use(metalsmithBabel())
 	.run({'FOO.JS': {contents: Buffer.from('1=a')}}, ({code}) => {
 		t.equal(
 			code,
 			'BABEL_PARSE_ERROR',
 			'should fail when Babel cannot transpile the code.'
+		);
+	});
+
+	new Metalsmith('.')
+	.use(metalsmithBabel({
+		preset: 'must be `preset**s**`'
+	}))
+	.run({'source.tsx': {contents: Buffer.from('')}}, err => {
+		t.ok(
+			err.toString().startsWith('ReferenceError: Unknown option: .preset.'),
+			'should fail when it takes an unknown option.'
+		);
+	});
+
+	new Metalsmith('.')
+	.use(metalsmithBabel({
+		plugins: ['babel-plugin-notfound']
+	}))
+	.run({'source.ts': {contents: Buffer.from('')}}, ({message}) => {
+		t.equal(
+			message,
+			`Cannot find module 'babel-plugin-notfound' from '${__dirname}'`,
+			'should fail when Babel cannot resolve the path of a given plugin.'
 		);
 	});
 

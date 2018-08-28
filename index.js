@@ -5,14 +5,10 @@ const {promisify} = require('util');
 
 const inspectWithKind = require('inspect-with-kind');
 const isPlainObject = require('lodash/isPlainObject');
-const {transform} = require('@babel/core');
+const {loadOptions, transform} = require('@babel/core');
+const some = require('lodash/some');
 
 const promisifiedBabelTransform = promisify(transform);
-
-function isFileToBeCompiled(originalFilename) {
-	const ext = extname(originalFilename).toLowerCase().slice(1);
-	return ext === 'js' || ext === 'mjs' || ext === 'jsx';
-}
 
 module.exports = function metalsmithBabel(...args) {
 	const argLen = args.length;
@@ -37,21 +33,37 @@ module.exports = function metalsmithBabel(...args) {
 		let results;
 
 		try {
-			results = await Promise.all(Object.keys(files).filter(isFileToBeCompiled).map(async originalFilename => {
-				const {code, map} = await promisifiedBabelTransform(String(files[originalFilename].contents), {
+			results = await Promise.all(Object.keys(files).reduce((processedFiles, originalFilename) => {
+				const ext = extname(originalFilename).toLowerCase().slice(1);
+
+				if (ext !== 'js' && ext !== 'mjs' && ext !== 'jsx' && ext !== 'ts' && ext !== 'tsx') {
+					return processedFiles;
+				}
+
+				const loadedOptions = loadOptions({
 					...options,
 					ast: false,
 					filename: join(metalsmith.directory(), metalsmith.source(), originalFilename),
 					filenameRelative: originalFilename
 				});
 
-				return {
-					originalFilename,
-					filename: originalFilename.replace(/\.jsx$/ui, '.js'),
-					code,
-					map
-				};
-			}));
+				if (ext.startsWith('ts') && !some(loadedOptions.overrides, setting => originalFilename.match(setting.test))) {
+					return processedFiles;
+				}
+
+				processedFiles.push((async () => {
+					const {code, map} = await promisifiedBabelTransform(String(files[originalFilename].contents), loadedOptions);
+
+					return {
+						originalFilename,
+						filename: originalFilename.replace(/\.(?:[jt]sx|ts)$/ui, '.js'),
+						code,
+						map
+					};
+				})());
+
+				return processedFiles;
+			}, []));
 		} catch (err) {
 			done(err);
 			return;
