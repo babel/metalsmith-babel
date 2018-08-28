@@ -3,19 +3,19 @@
 [![npm version](https://img.shields.io/npm/v/metalsmith-babel.svg)](https://www.npmjs.com/package/metalsmith-babel)
 [![Build Status](https://travis-ci.org/babel/metalsmith-babel.svg?branch=master)](https://travis-ci.org/babel/metalsmith-babel)
 [![Build status](https://ci.appveyor.com/api/projects/status/k49tibi2lsbl0xk2?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/metalsmith-babel)
-[![Coverage Status](https://img.shields.io/coveralls/babel/metalsmith-babel.svg)](https://coveralls.io/r/babel/metalsmith-babel)
+[![Coverage Status](https://img.shields.io/coveralls/babel/metalsmith-babel.svg)](https://coveralls.io/github/babel/metalsmith-babel)
 
-[Babel](https://babeljs.io/) plugin for [Metalsmith](http://www.metalsmith.io/)
+[Babel](https://babeljs.io/) plugin for [Metalsmith](https://github.com/segmentio/metalsmith)
 
 ## Installation
 
-[Use npm](https://docs.npmjs.com/cli/install):
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm):
 
 ```
 npm install metalsmith-babel
 ```
 
-And ensure the requisite [Babel plugins](https://babeljs.io/docs/plugins/) are installed.
+And ensure the requisite [Babel plugins](https://babeljs.io/docs/plugins) are installed.
 
 ## Usage
 
@@ -27,9 +27,7 @@ Add the `metalsmith-babel` field to your `metalsmith.json`.
 {
   "plugins": {
     "metalsmith-babel": {
-      "presets": ["env"]
-      "modules": "common",
-      "comments": true
+      "presets": ["@babel/preset-env"]
     }
   }
 }
@@ -58,8 +56,8 @@ new Metalsmith('./source')
 
 ### Options
 
-All [Babel options](https://babeljs.io/docs/usage/options/) are available except for `filename`, `filenameRelative` and `sourceMapTarget` that will be automatically set.
+All `@babel/core` [options](https://babeljs.io/docs/en/babel-core#options) are available except for `filename` and `filenameRelative` that will be automatically set.
 
 ## License
 
-[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe

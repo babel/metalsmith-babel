@@ -1,49 +1,43 @@
 {
-  "name": "metalsmith-babel",
-  "version": "5.0.0-2",
-  "description": "Babel plugin for Metalsmith",
-  "repository": "babel/metalsmith-babel",
-  "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
-  "license": "ISC",
-  "scripts": {
-    "pretest": "eslint --fix --format=codeframe index.js test.js",
-    "test": "istanbul cover test.js"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "metalsmith",
-    "metalsmith-plugin",
-    "babel",
-    "ecmascript",
-    "script",
-    "transpile",
-    "transpiler",
-    "language",
-    "compatibility",
-    "esnext",
-    "future",
-    "plugin",
-    "harmony"
-  ],
-  "dependencies": {
-    "babel-core": "^6.26.0",
-    "to-fast-properties": "^1.0.2"
-  },
-  "devDependencies": {
-    "@shinnn/eslint-config-node": "^4.0.2",
-    "babel-plugin-transform-function-bind": "^6.22.0",
-    "babel-preset-react": "^6.24.1",
-    "eslint": "^4.10.0",
-    "istanbul": "^0.4.5",
-    "metalsmith": "^2.3.0",
-    "tape": "^4.8.0"
-  },
-  "eslintConfig": {
-    "extends": "@shinnn/node",
-    "parserOptions": {
-      "ecmaVersion": 2018
-    }
-  }
+	"name": "metalsmith-babel",
+	"version": "5.0.0-2",
+	"description": "Babel plugin for Metalsmith",
+	"repository": "babel/metalsmith-babel",
+	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"license": "ISC",
+	"scripts": {
+		"pretest": "eslint .",
+		"test": "nyc --reporter=html --reporter=text --no-source-map node test.js"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"metalsmith",
+		"metalsmith-plugin",
+		"babel",
+		"ecmascript",
+		"script",
+		"language",
+		"compatibility",
+		"esnext",
+		"future",
+		"plugin",
+		"harmony"
+	],
+	"dependencies": {
+		"@babel/core": "^7.0.0"
+	},
+	"devDependencies": {
+		"@babel/plugin-proposal-function-bind": "^7.0.0",
+		"@babel/preset-react": "^7.0.0",
+		"@shinnn/eslint-config-node": "^6.0.0",
+		"eslint": "^5.4.0",
+		"metalsmith": "^2.3.0",
+		"nyc": "^13.0.1",
+		"tape": "^4.9.1"
+	},
+	"eslintConfig": {
+		"extends": "@shinnn/node"
+	}
 }

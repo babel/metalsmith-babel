@@ -1,63 +1,80 @@
 'use strict';
 
-const {dirname, extname, join, relative} = require('path');
+const {dirname, extname, join, relative, resolve} = require('path');
+const {promisify} = require('util');
 
-const babel = require('babel-core');
-const toFastProperties = require('to-fast-properties');
+const {transform} = require('@babel/core');
+
+const promisifiedBabelTransform = promisify(transform);
+
+function isFileToBeCompiled(originalFilename) {
+	const ext = extname(originalFilename).toLowerCase().slice(1);
+	return ext === 'js' || ext === 'mjs' || ext === 'jsx';
+}
 
 module.exports = function metalsmithBabel(...args) {
-  const argLen = args.length;
+	const argLen = args.length;
 
-  if (argLen > 1) {
-    throw new RangeError(`Expected 0 or 1 argument ([<Object>]), but got ${argLen} arguments.`);
-  }
+	if (argLen > 1) {
+		throw new RangeError(`Expected 0 or 1 argument ([<Object>]), but got ${argLen} arguments.`);
+	}
 
-  const options = {...args[0]};
-  let noFilesRenamed = true;
+	const cwd = process.cwd();
+	const options = {...args[0]};
+	// https://github.com/babel/babel/blob/v7.0.0/packages/babel-core/src/config/validation/options.js#L380
+	// > .sourceMap is an alias for .sourceMaps
+	const needsSourceMappingUrl = options.sourceMaps !== 'both' && options.sourceMap !== 'both';
 
-  return function metalsmithBabelPlugin(files, metalsmith) {
-    for (const originalFilename of Object.keys(files)) {
-      const ext = extname(originalFilename).toLowerCase();
-      if (ext !== '.js' && ext !== '.mjs' && ext !== '.jsx') {
-        continue;
-      }
+	return async function metalsmithBabelPlugin(files, metalsmith, done) {
+		let results;
 
-      const filename = originalFilename.replace(/\.jsx$/ui, '.js');
+		try {
+			results = await Promise.all(Object.keys(files).filter(isFileToBeCompiled).map(async originalFilename => {
+				const {code, map} = await promisifiedBabelTransform(String(files[originalFilename].contents), {
+					...options,
+					ast: false,
+					filename: join(metalsmith.directory(), metalsmith.source(), originalFilename),
+					filenameRelative: originalFilename
+				});
 
-      if (originalFilename !== filename) {
-        files[filename] = files[originalFilename];
-        delete files[originalFilename];
-        noFilesRenamed = false;
-      }
+				return {
+					originalFilename,
+					filename: originalFilename.replace(/\.jsx$/ui, '.js'),
+					code,
+					map
+				};
+			}));
+		} catch (err) {
+			done(err);
+			return;
+		}
 
-      const result = babel.transform(String(files[filename].contents), {
-        ...options,
-        filename: join(metalsmith.directory(), metalsmith.source(), originalFilename),
-        filenameRelative: originalFilename,
-        sourceMapTarget: filename
-      });
+		for (const {originalFilename, filename, code, map} of results) {
+			if (originalFilename !== filename) {
+				files[filename] = files[originalFilename];
+				delete files[originalFilename];
+			}
 
-      if (result.map) {
-        const sourcemapPath = `${filename}.map`;
-        files[sourcemapPath] = {
-          contents: Buffer.from(JSON.stringify(result.map))
-        };
+			if (map) {
+				const sourcemapPath = `${filename}.map`;
 
-        // https://github.com/babel/babel/blob/v6.24.0/packages/babel-core/src/transformation/file/options/config.js#L123
-        if (options.sourceMap !== 'both' && options.sourceMaps !== 'both') {
-          result.code += `\n//# sourceMappingURL=${
-            relative(dirname(filename), sourcemapPath).replace(/\\/ug, '/')
-          }\n`;
-        }
-      }
+				map.file = filename;
+				files[sourcemapPath] = {
+					contents: Buffer.from(JSON.stringify(map))
+				};
 
-      files[filename].contents = Buffer.from(result.code);
-    }
+				if (needsSourceMappingUrl) {
+					files[filename].contents = Buffer.from(`${code}
+//# sourceMappingURL=${relative(resolve(cwd, dirname(filename)), sourcemapPath).replace(/\\/ug, '/')}
+`);
 
-    if (noFilesRenamed) {
-      return;
-    }
+					continue;
+				}
+			}
 
-    toFastProperties(files);
-  };
+			files[filename].contents = Buffer.from(code);
+		}
+
+		done();
+	};
 };
