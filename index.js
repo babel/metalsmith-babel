@@ -1,17 +1,18 @@
 'use strict';
 
-const pathLib = require('path');
-
-const dirname = pathLib.dirname;
-const extname = pathLib.extname;
-const join = pathLib.join;
-const relative = pathLib.relative;
+const {dirname, extname, join, relative} = require('path');
 
 const babel = require('babel-core');
 const toFastProperties = require('to-fast-properties');
 
-module.exports = function metalsmithBabel(options) {
-  options = Object.assign({}, options);
+module.exports = function metalsmithBabel(...args) {
+  const argLen = args.length;
+
+  if (argLen > 1) {
+    throw new RangeError(`Expected 0 or 1 argument ([<Object>]), but got ${argLen} arguments.`);
+  }
+
+  const options = Object.assign({}, args[0]);
   let noFilesRenamed = true;
 
   return function metalsmithBabelPlugin(files, metalsmith) {
@@ -41,7 +42,7 @@ module.exports = function metalsmithBabel(options) {
           contents: Buffer.from(JSON.stringify(result.map))
         };
 
-        // https://github.com/babel/babel/blob/v6.23.0/packages/babel-core/src/transformation/file/options/config.js#L123
+        // https://github.com/babel/babel/blob/v6.24.0/packages/babel-core/src/transformation/file/options/config.js#L123
         if (options.sourceMap !== 'both' && options.sourceMaps !== 'both') {
           result.code += `\n//# sourceMappingURL=${
             relative(dirname(filename), sourcemapPath).replace(/\\/g, '/')

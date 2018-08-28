@@ -7,8 +7,6 @@ const test = require('tape');
 test('metalsmith-babel', t => {
   t.plan(12);
 
-  t.equal(babel.name, 'metalsmithBabel', 'should have a function name.');
-
   new Metalsmith('.')
   .use(babel())
   .run({
@@ -91,4 +89,10 @@ test('metalsmith-babel', t => {
   .run({'FOO.JS': {contents: Buffer.from('1=a')}}, err => {
     t.ok(err instanceof SyntaxError, 'should fail when Babel cannot transpile the code.');
   });
+
+  t.throws(
+    () => babel({}, {}),
+    /RangeError.*Expected 0 or 1 argument \(\[<Object>\]\), but got 2 arguments\./u,
+    'should throw an error when it takes too many arguments.'
+  );
 });
