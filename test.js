@@ -5,7 +5,7 @@ const metalsmithBabel = require('.');
 const test = require('tape');
 
 test('metalsmith-babel', t => {
-	t.plan(12);
+	t.plan(13);
 
 	new Metalsmith('.')
 	.use(metalsmithBabel())
@@ -95,8 +95,14 @@ test('metalsmith-babel', t => {
 	});
 
 	t.throws(
+		() => metalsmithBabel(new Int32Array()),
+		/^TypeError.*Expdected an options object to set @babel\/core options, but got Int32Array \[ {2}\]\./u,
+		'should throw an error when it takes a non-plain object argument.'
+	);
+
+	t.throws(
 		() => metalsmithBabel({}, {}),
-		/RangeError.*Expected 0 or 1 argument \(\[<Object>\]\), but got 2 arguments\./u,
+		/^RangeError.*Expected 0 or 1 argument \(\[<Object>\]\), but got 2 arguments\./u,
 		'should throw an error when it takes too many arguments.'
 	);
 });

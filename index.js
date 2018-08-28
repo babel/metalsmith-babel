@@ -3,6 +3,8 @@
 const {dirname, extname, join, relative, resolve} = require('path');
 const {promisify} = require('util');
 
+const inspectWithKind = require('inspect-with-kind');
+const isPlainObject = require('lodash/isPlainObject');
 const {transform} = require('@babel/core');
 
 const promisifiedBabelTransform = promisify(transform);
@@ -15,7 +17,13 @@ function isFileToBeCompiled(originalFilename) {
 module.exports = function metalsmithBabel(...args) {
 	const argLen = args.length;
 
-	if (argLen > 1) {
+	if (argLen === 1) {
+		if (!isPlainObject(args[0])) {
+			throw new TypeError(`Expdected an options object to set @babel/core options, but got ${
+				inspectWithKind(args[0])
+			}.`);
+		}
+	} else if (argLen > 1) {
 		throw new RangeError(`Expected 0 or 1 argument ([<Object>]), but got ${argLen} arguments.`);
 	}
 
