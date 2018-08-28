@@ -4,11 +4,11 @@
   "description": "Babel plugin for Metalsmith",
   "repository": "babel/metalsmith-babel",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+  "license": "ISC",
   "scripts": {
     "pretest": "eslint --fix --format=codeframe index.js test.js",
     "test": "istanbul cover test.js"
   },
-  "license": "ISC",
   "files": [
     "index.js"
   ],
@@ -29,7 +29,6 @@
   ],
   "dependencies": {
     "babel-core": "^6.26.0",
-    "safe-buffer": "^5.1.1",
     "to-fast-properties": "^1.0.2"
   },
   "devDependencies": {
