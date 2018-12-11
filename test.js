@@ -163,7 +163,7 @@ test('metalsmith-babel', t => {
 
 	t.throws(
 		() => metalsmithBabel(new Int32Array()),
-		/^TypeError.*Expdected an options object to set @babel\/core options, but got Int32Array \[ {2}\]\./u,
+		/^TypeError.*Expdected an options object to set @babel\/core options, but got Int32Array \[\]\./u,
 		'should throw an error when it takes a non-plain object argument.'
 	);
 

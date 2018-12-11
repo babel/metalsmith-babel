@@ -25,7 +25,7 @@ module.exports = function metalsmithBabel(...args) {
 
 	const cwd = process.cwd();
 	const options = {...args[0]};
-	// https://github.com/babel/babel/blob/v7.0.0/packages/babel-core/src/config/validation/options.js#L380
+	// https://github.com/babel/babel/blob/v7.2.0/packages/babel-core/src/config/validation/options.js#L386
 	// > .sourceMap is an alias for .sourceMaps
 	const needsSourceMappingUrl = options.sourceMaps !== 'both' && options.sourceMap !== 'both';
 
@@ -47,7 +47,7 @@ module.exports = function metalsmithBabel(...args) {
 					filenameRelative: originalFilename
 				});
 
-				if (ext.startsWith('ts') && !some(loadedOptions.overrides, setting => originalFilename.match(setting.test))) {
+				if (ext.startsWith('ts') && !some(loadedOptions.plugins, {key: 'transform-typescript'})) {
 					return processedFiles;
 				}
 
