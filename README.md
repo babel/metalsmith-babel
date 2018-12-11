@@ -2,14 +2,13 @@
 
 [![npm version](https://img.shields.io/npm/v/metalsmith-babel.svg)](https://www.npmjs.com/package/metalsmith-babel)
 [![Build Status](https://travis-ci.org/babel/metalsmith-babel.svg?branch=master)](https://travis-ci.org/babel/metalsmith-babel)
-[![Build status](https://ci.appveyor.com/api/projects/status/k49tibi2lsbl0xk2?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/metalsmith-babel)
 [![Coverage Status](https://img.shields.io/coveralls/babel/metalsmith-babel.svg)](https://coveralls.io/github/babel/metalsmith-babel)
 
 [Babel](https://babeljs.io/) plugin for [Metalsmith](https://github.com/segmentio/metalsmith)
 
 ## Installation
 
-[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm):
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/about-npm/):
 
 ```
 npm install metalsmith-babel
